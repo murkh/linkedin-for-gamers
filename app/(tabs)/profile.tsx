@@ -1,8 +1,9 @@
-import FeedScreen from "@/src/screens/FeedScreen";
 import { StyleSheet } from "react-native";
 
-export default function TabOneScreen() {
-  return <FeedScreen />;
+import ProfileScreen from "../tabs/profile";
+
+export default function TabTwoScreen() {
+  return <ProfileScreen />;
 }
 
 const styles = StyleSheet.create({
