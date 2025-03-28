@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { mockUsers, User } from '../data/mockUsers';
-import { theme } from '../theme';
+import { colors, spacing, typography, shadows } from '../theme';
 
 export const SearchScreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -52,10 +52,11 @@ export const SearchScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
-        <Icon name="search" size={24} color={theme.colors.text} style={styles.searchIcon} />
+        <Icon name="search" size={24} color={colors.text.muted} style={styles.searchIcon} />
         <TextInput
           style={styles.searchInput}
           placeholder="Search users..."
+          placeholderTextColor={colors.text.muted}
           value={searchQuery}
           onChangeText={handleSearch}
         />
@@ -73,71 +74,67 @@ export const SearchScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.background.primary,
   },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 16,
-    backgroundColor: theme.colors.background,
+    padding: spacing.md,
+    backgroundColor: colors.background.secondary,
     borderBottomWidth: 1,
-    borderBottomColor: theme.colors.border,
+    borderBottomColor: colors.border,
   },
   searchIcon: {
-    marginRight: 8,
+    marginRight: spacing.sm,
   },
   searchInput: {
     flex: 1,
     height: 40,
-    fontSize: 16,
-    color: theme.colors.text,
+    fontSize: typography.sizes.md,
+    color: colors.text.primary,
   },
   listContainer: {
-    padding: 16,
+    padding: spacing.md,
   },
   userCard: {
     flexDirection: 'row',
-    padding: 16,
-    backgroundColor: theme.colors.card,
+    padding: spacing.md,
+    backgroundColor: colors.background.secondary,
     borderRadius: 12,
-    marginBottom: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    marginBottom: spacing.md,
+    ...shadows.md,
   },
   avatar: {
     width: 60,
     height: 60,
     borderRadius: 30,
-    marginRight: 16,
+    marginRight: spacing.md,
   },
   userInfo: {
     flex: 1,
   },
   name: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: theme.colors.text,
-    marginBottom: 4,
+    fontSize: typography.sizes.lg,
+    fontWeight: '700' as const,
+    color: colors.text.primary,
+    marginBottom: spacing.xs,
   },
   username: {
-    fontSize: 14,
-    color: theme.colors.secondary,
-    marginBottom: 4,
+    fontSize: typography.sizes.sm,
+    color: colors.text.muted,
+    marginBottom: spacing.xs,
   },
   bio: {
-    fontSize: 14,
-    color: theme.colors.text,
-    marginBottom: 8,
+    fontSize: typography.sizes.sm,
+    color: colors.text.secondary,
+    marginBottom: spacing.sm,
   },
   stats: {
     flexDirection: 'row',
   },
   statText: {
-    fontSize: 12,
-    color: theme.colors.secondary,
-    marginRight: 16,
+    fontSize: typography.sizes.xs,
+    color: colors.text.muted,
+    marginRight: spacing.md,
   },
 }); 
