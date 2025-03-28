@@ -1,3 +1,30 @@
+export const theme = {
+  colors: {
+    primary: '#007AFF',
+    secondary: '#8E8E93',
+    background: '#FFFFFF',
+    card: '#F2F2F7',
+    text: '#000000',
+    border: '#E5E5EA',
+  },
+  spacing: {
+    xs: 4,
+    sm: 8,
+    md: 16,
+    lg: 24,
+    xl: 32,
+  },
+  typography: {
+    sizes: {
+      xs: 12,
+      sm: 14,
+      md: 16,
+      lg: 18,
+      xl: 24,
+    },
+  },
+};
+
 export const colors = {
   primary: {
     main: '#2563eb', // Electric blue

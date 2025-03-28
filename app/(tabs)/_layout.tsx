@@ -58,7 +58,7 @@ export default function TabLayout() {
           tabBarStyle: {
             backgroundColor: colors.background.secondary,
             borderTopColor: colors.background.tertiary,
-            position: 'absolute',
+            position: "absolute",
             bottom: 0,
             left: 0,
             right: 0,
@@ -76,16 +76,28 @@ export default function TabLayout() {
         <Tabs.Screen
           name="index"
           options={{
-            title: 'Feed',
+            title: "Feed",
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="home" size={size} color={color} />
+            ),
+            headerRight: () => (
+              <Pressable
+                onPress={() => router.push("/search")}
+                style={{ marginRight: 15 }}
+              >
+                <MaterialCommunityIcons
+                  name="magnify"
+                  size={24}
+                  color={colors.text.primary}
+                />
+              </Pressable>
             ),
           }}
         />
         <Tabs.Screen
           name="leaderboard"
           options={{
-            title: 'Leaderboard',
+            title: "Leaderboard",
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="trophy" size={size} color={color} />
             ),
@@ -94,16 +106,20 @@ export default function TabLayout() {
         <Tabs.Screen
           name="create-post"
           options={{
-            title: 'Create Post',
+            title: "Create Post",
             tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="plus-circle" size={size} color={color} />
+              <MaterialCommunityIcons
+                name="plus-circle"
+                size={size}
+                color={color}
+              />
             ),
           }}
         />
         <Tabs.Screen
           name="notifications"
           options={{
-            title: 'Notifications',
+            title: "Notifications",
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="bell" size={size} color={color} />
             ),
@@ -112,9 +128,13 @@ export default function TabLayout() {
         <Tabs.Screen
           name="profile"
           options={{
-            title: 'Profile',
+            title: "Profile",
             tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="account" size={size} color={color} />
+              <MaterialCommunityIcons
+                name="account"
+                size={size}
+                color={color}
+              />
             ),
           }}
         />

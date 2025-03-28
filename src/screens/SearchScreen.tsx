@@ -1,94 +1,71 @@
 import React, { useState } from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
-import { Searchbar, Card, Avatar, Text, Chip } from 'react-native-paper';
-import { colors, spacing, typography } from '../theme';
+import {
+  View,
+  TextInput,
+  FlatList,
+  Image,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { mockUsers, User } from '../data/mockUsers';
+import { theme } from '../theme';
 
-interface GamePreference {
-  game: string;
-  rank: string;
-}
-
-interface User {
-  id: string;
-  username: string;
-  avatar: string;
-  region: string;
-  gamePreferences: GamePreference[];
-}
-
-const SearchScreen = () => {
+export const SearchScreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [filteredUsers, setFilteredUsers] = useState<User[]>(mockUsers);
 
-  // Mock data - in a real app, this would come from an API
-  const users: User[] = [
-    {
-      id: '1',
-      username: 'ProGamer123',
-      avatar: 'https://ui-avatars.com/api/?name=Pro+Gamer',
-      region: 'NA',
-      gamePreferences: [
-        { game: 'Valorant', rank: 'Diamond II' },
-        { game: 'CS:GO', rank: 'Global Elite' },
-      ],
-    },
-    {
-      id: '2',
-      username: 'AimMaster',
-      avatar: 'https://ui-avatars.com/api/?name=Aim+Master',
-      region: 'EU',
-      gamePreferences: [
-        { game: 'Valorant', rank: 'Immortal' },
-        { game: 'Apex Legends', rank: 'Master' },
-      ],
-    },
-  ];
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    if (query.trim() === '') {
+      setFilteredUsers(mockUsers);
+      return;
+    }
 
-  const filteredUsers = users.filter((user) =>
-    user.username.toLowerCase().includes(searchQuery.toLowerCase())
+    const filtered = mockUsers.filter(
+      (user) =>
+        user.name.toLowerCase().includes(query.toLowerCase()) ||
+        user.gamingUsername.toLowerCase().includes(query.toLowerCase()) ||
+        user.bio.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredUsers(filtered);
+  };
+
+  const renderUserItem = ({ item }: { item: User }) => (
+    <TouchableOpacity style={styles.userCard}>
+      <Image source={{ uri: item.avatar }} style={styles.avatar} />
+      <View style={styles.userInfo}>
+        <Text style={styles.name}>{item.name}</Text>
+        <Text style={styles.username}>@{item.gamingUsername}</Text>
+        <Text style={styles.bio} numberOfLines={2}>
+          {item.bio}
+        </Text>
+        <View style={styles.stats}>
+          <Text style={styles.statText}>{item.followers} followers</Text>
+          <Text style={styles.statText}>{item.following} following</Text>
+        </View>
+      </View>
+    </TouchableOpacity>
   );
 
   return (
     <View style={styles.container}>
-      <Searchbar
-        placeholder="Search gamers..."
-        onChangeText={setSearchQuery}
-        value={searchQuery}
-        style={styles.searchBar}
-        iconColor={colors.text.primary}
-        inputStyle={styles.searchInput}
-        placeholderTextColor={colors.text.muted}
+      <View style={styles.searchContainer}>
+        <Icon name="search" size={24} color={theme.colors.text} style={styles.searchIcon} />
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search users..."
+          value={searchQuery}
+          onChangeText={handleSearch}
+        />
+      </View>
+      <FlatList
+        data={filteredUsers}
+        renderItem={renderUserItem}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.listContainer}
       />
-
-      <ScrollView style={styles.results}>
-        {filteredUsers.map((user) => (
-          <Card key={user.id} style={styles.userCard}>
-            <Card.Content style={styles.cardContent}>
-              <View style={styles.userInfo}>
-                <Avatar.Image
-                  size={60}
-                  source={{ uri: user.avatar }}
-                  style={styles.avatar}
-                />
-                <View style={styles.userDetails}>
-                  <Text style={styles.username}>{user.username}</Text>
-                  <Chip style={styles.regionChip} textStyle={styles.regionText}>
-                    {user.region}
-                  </Chip>
-                </View>
-              </View>
-
-              <View style={styles.gamePreferences}>
-                {user.gamePreferences.map((pref, index) => (
-                  <View key={index} style={styles.gamePreference}>
-                    <Text style={styles.gameName}>{pref.game}</Text>
-                    <Text style={styles.gameRank}>{pref.rank}</Text>
-                  </View>
-                ))}
-              </View>
-            </Card.Content>
-          </Card>
-        ))}
-      </ScrollView>
     </View>
   );
 };
@@ -96,71 +73,71 @@ const SearchScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background.primary,
-    padding: spacing.md,
+    backgroundColor: theme.colors.background,
   },
-  searchBar: {
-    backgroundColor: colors.background.secondary,
-    marginBottom: spacing.lg,
-    elevation: 0,
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 16,
+    backgroundColor: theme.colors.background,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colors.border,
+  },
+  searchIcon: {
+    marginRight: 8,
   },
   searchInput: {
-    color: colors.text.primary,
-  },
-  results: {
     flex: 1,
+    height: 40,
+    fontSize: 16,
+    color: theme.colors.text,
+  },
+  listContainer: {
+    padding: 16,
   },
   userCard: {
-    marginBottom: spacing.md,
-    backgroundColor: colors.background.secondary,
-  },
-  cardContent: {
-    padding: spacing.md,
-  },
-  userInfo: {
     flexDirection: 'row',
-    marginBottom: spacing.md,
+    padding: 16,
+    backgroundColor: theme.colors.card,
+    borderRadius: 12,
+    marginBottom: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   avatar: {
-    marginRight: spacing.md,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    marginRight: 16,
   },
-  userDetails: {
+  userInfo: {
     flex: 1,
-    justifyContent: 'center',
+  },
+  name: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: theme.colors.text,
+    marginBottom: 4,
   },
   username: {
-    color: colors.text.primary,
-    fontSize: typography.sizes.lg,
-    fontWeight: '600',
-    marginBottom: spacing.xs,
+    fontSize: 14,
+    color: theme.colors.secondary,
+    marginBottom: 4,
   },
-  regionChip: {
-    backgroundColor: colors.primary.dark,
-    alignSelf: 'flex-start',
+  bio: {
+    fontSize: 14,
+    color: theme.colors.text,
+    marginBottom: 8,
   },
-  regionText: {
-    color: colors.text.primary,
-    fontSize: typography.sizes.xs,
-  },
-  gamePreferences: {
-    gap: spacing.sm,
-  },
-  gamePreference: {
+  stats: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: spacing.xs,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.background.tertiary,
   },
-  gameName: {
-    color: colors.text.primary,
-    fontSize: typography.sizes.md,
+  statText: {
+    fontSize: 12,
+    color: theme.colors.secondary,
+    marginRight: 16,
   },
-  gameRank: {
-    color: colors.text.secondary,
-    fontSize: typography.sizes.sm,
-  },
-});
-
-export default SearchScreen; 
+}); 
