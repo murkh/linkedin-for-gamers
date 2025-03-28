@@ -24,6 +24,7 @@ export const colors = {
     secondary: '#cbd5e1',
     muted: '#64748b',
   },
+  border: '#334155', // Border color for UI elements
   success: '#22c55e',
   error: '#ef4444',
   warning: '#f59e0b',
