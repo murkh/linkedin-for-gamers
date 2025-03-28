@@ -66,6 +66,12 @@ export default function TabLayout() {
           tabBarStyle: {
             backgroundColor: colors.background.secondary,
             borderTopColor: colors.background.tertiary,
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            elevation: 0,
+            height: 60,
           },
           tabBarActiveTintColor: colors.primary.main,
           tabBarInactiveTintColor: colors.text.muted,
