@@ -1,33 +1,32 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import React, { useState } from "react";
+import { View, StyleSheet, Image } from "react-native";
 import {
   TextInput,
   Button,
-  Text,
   Portal,
   Dialog,
   List,
   IconButton,
-} from 'react-native-paper';
-import { colors, spacing, typography, borderRadius } from '../theme';
+} from "react-native-paper";
+import { colors, spacing, typography, borderRadius } from "../theme";
 
 const CreatePostScreen = () => {
-  const [content, setContent] = useState('');
-  const [selectedGame, setSelectedGame] = useState('');
+  const [content, setContent] = useState("");
+  const [selectedGame, setSelectedGame] = useState("");
   const [isGameSelectorVisible, setIsGameSelectorVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   // Mock data - in a real app, this would come from an API or user's game library
   const availableGames = [
-    { id: '1', name: 'Valorant' },
-    { id: '2', name: 'CS:GO' },
-    { id: '3', name: 'Apex Legends' },
-    { id: '4', name: 'League of Legends' },
+    { id: "1", name: "Valorant" },
+    { id: "2", name: "CS:GO" },
+    { id: "3", name: "Apex Legends" },
+    { id: "4", name: "League of Legends" },
   ];
 
   const handlePost = () => {
     // In a real app, this would upload the image and create a post
-    console.log('Creating post...', {
+    console.log("Creating post...", {
       content,
       selectedGame,
       selectedImage,
@@ -37,7 +36,7 @@ const CreatePostScreen = () => {
   const handleSelectImage = () => {
     // In a real app, this would open the image picker
     // For now, we'll just set a mock image
-    setSelectedImage('https://picsum.photos/400/300');
+    setSelectedImage("https://picsum.photos/400/300");
   };
 
   return (
@@ -60,7 +59,7 @@ const CreatePostScreen = () => {
         textColor={colors.text.primary}
         icon="gamepad-variant"
       >
-        {selectedGame || 'Select Game'}
+        {selectedGame || "Select Game"}
       </Button>
 
       {selectedImage ? (
@@ -160,22 +159,22 @@ const styles = StyleSheet.create({
   },
   imagePreviewContainer: {
     marginBottom: spacing.md,
-    position: 'relative',
+    position: "relative",
   },
   imagePreview: {
-    width: '100%',
+    width: "100%",
     height: 200,
     borderRadius: borderRadius.md,
   },
   removeImageButton: {
-    position: 'absolute',
+    position: "absolute",
     top: -12,
     right: -12,
     backgroundColor: colors.background.primary,
   },
   postButton: {
     backgroundColor: colors.primary.main,
-    marginTop: 'auto',
+    marginTop: "auto",
   },
   dialog: {
     backgroundColor: colors.background.secondary,
@@ -183,7 +182,7 @@ const styles = StyleSheet.create({
   dialogTitle: {
     color: colors.text.primary,
     fontSize: typography.sizes.lg,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   gameOption: {
     color: colors.text.primary,
@@ -191,8 +190,8 @@ const styles = StyleSheet.create({
   },
   selectedGameOption: {
     color: colors.primary.main,
-    fontWeight: '600',
+    fontWeight: "600",
   },
 });
 
-export default CreatePostScreen; 
+export default CreatePostScreen;
