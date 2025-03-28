@@ -26,14 +26,8 @@ const ErrorFallback = ({ error, resetErrorBoundary }: { error: Error; resetError
   </View>
 );
 
-export default function ProfileTabScreen() {
-  return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <Suspense fallback={<LoadingFallback />}>
-        <ProfileScreen />
-      </Suspense>
-    </ErrorBoundary>
-  );
+export default function Profile() {
+  return <ProfileScreen />;
 }
 
 const styles = StyleSheet.create({

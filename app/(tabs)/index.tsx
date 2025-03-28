@@ -26,14 +26,8 @@ const ErrorFallback = ({ error, resetErrorBoundary }: { error: Error; resetError
   </View>
 );
 
-export default function TabOneScreen() {
-  return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <Suspense fallback={<LoadingFallback />}>
-        <FeedScreen />
-      </Suspense>
-    </ErrorBoundary>
-  );
+export default function Feed() {
+  return <FeedScreen />;
 }
 
 const styles = StyleSheet.create({

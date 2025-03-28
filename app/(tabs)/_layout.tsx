@@ -65,55 +65,58 @@ export default function TabLayout() {
         screenOptions={{
           tabBarStyle: {
             backgroundColor: colors.background.secondary,
-            borderTopWidth: 1,
-            borderTopColor: colors.border,
+            borderTopColor: colors.background.tertiary,
           },
           tabBarActiveTintColor: colors.primary.main,
           tabBarInactiveTintColor: colors.text.muted,
           headerStyle: {
             backgroundColor: colors.background.secondary,
-            borderBottomWidth: 1,
-            borderBottomColor: colors.border,
           },
           headerTintColor: colors.text.primary,
-          headerTitleStyle: {
-            fontWeight: "600",
-          },
-          tabBarLabelStyle: {
-            fontSize: 12,
-            fontWeight: "500",
-          },
         }}
       >
         <Tabs.Screen
           name="index"
           options={{
-            title: "Home",
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="home" size={24} color={color} />
+            title: 'Feed',
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="home" size={size} color={color} />
             ),
-            headerRight: () => (
-              <Link href="/modal" asChild>
-                <Pressable>
-                  {({ pressed }) => (
-                    <FontAwesome
-                      name="info-circle"
-                      size={25}
-                      color={Colors[colorScheme ?? "light"].text}
-                      style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                    />
-                  )}
-                </Pressable>
-              </Link>
+          }}
+        />
+        <Tabs.Screen
+          name="leaderboard"
+          options={{
+            title: 'Leaderboard',
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="trophy" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="create-post"
+          options={{
+            title: 'Create Post',
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="plus-circle" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="notifications"
+          options={{
+            title: 'Notifications',
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="bell" size={size} color={color} />
             ),
           }}
         />
         <Tabs.Screen
           name="profile"
           options={{
-            title: "Profile",
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="account" size={24} color={color} />
+            title: 'Profile',
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="account" size={size} color={color} />
             ),
           }}
         />
